@@ -14,7 +14,7 @@ if(isset($_POST['username']) && isset($_POST['password']))
     {
       $pwd_peppered = hash_hmac("sha512", $password, 8);
 
-      $requete = "SELECT count(*),id_user,role,etat FROM utilisateur where nom_utilisateur = '".$username."' and mot_de_passe = '".$pwd_peppered."'";
+      $requete = "SELECT count(*),pseudo,email,id_user,`role`,etat FROM user where pseudo = '".$username."' and mdp = '".$pwd_peppered."'";
       $exec_requete = mysqli_query($db,$requete);
       $reponse      = mysqli_fetch_array($exec_requete);
       $count = $reponse['count(*)'];
@@ -23,6 +23,7 @@ if(isset($_POST['username']) && isset($_POST['password']))
       {  
          if($reponse['etat'] != 'Bannir'){
             $_SESSION['username'] = $username;
+            $_SESSION['email'] = $reponse['email'];
             $_SESSION['id_user'] = $reponse['id_user'];
             $_SESSION['role'] = $reponse['role'];
             header('Location: ../acceuil.php');
@@ -33,7 +34,7 @@ if(isset($_POST['username']) && isset($_POST['password']))
       }
       else
       {
-         header('Location: ../connection.php?erreur=1'); // utilisateur ou mot de passe incorrect
+        header('Location: ../connection.php?erreur=1'); // utilisateur ou mot de passe incorrect
       }
 
       

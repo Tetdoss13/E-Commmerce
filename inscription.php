@@ -12,6 +12,9 @@
                 
                 <label><b>Nom d'utilisateur</b></label>
                 <input type="text" placeholder="Entrer le nom d'utilisateur" name="username" maxlength="13" required>
+                
+                <label><b>Email</b></label>
+                <input type="text" placeholder="Entrer l'email" name="email" required>
 
                 <label><b>Choisissez un Mot de passe</b></label><abbr class="information" title="Doit comporté au minimum une minuscule, majuscule, numero, caractère spèciale et 12 caractère">?</abbr>
                 <input type="password" placeholder="Entrer le mot de passe" id="password" name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{12,}$" required>

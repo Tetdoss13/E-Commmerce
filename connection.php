@@ -33,7 +33,7 @@
                 }
                 ?>
                 <p class="Inscriptiontext">Si vous n'avez pas de Compte</p>
-                <a class="s" href="inscription.php" >Incrivez-vous</a>
+                <a class="s" href="inscription.php" >Inscrivez-vous</a>
                 
             </form>
         </div>

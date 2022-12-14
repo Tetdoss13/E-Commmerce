@@ -7,7 +7,7 @@ if(isset($_POST['verificationPassword']))
         include('connect.php');
         $verificationPassword = mysqli_real_escape_string($db,htmlspecialchars($_POST['verificationPassword']));
         $pwd_peppered = hash_hmac("sha512", $verificationPassword, 8);
-        $requete = "SELECT count(*),id_user FROM utilisateur where nom_utilisateur = '".$_SESSION['username']."' and mot_de_passe = '".$pwd_peppered."'";
+        $requete = "SELECT count(*),id_user FROM user where email = '".$_SESSION['username']."' and mdp = '".$pwd_peppered."'";
         $exec_requete = mysqli_query($db,$requete);
         $reponse      = mysqli_fetch_array($exec_requete);
         $count = $reponse['count(*)'];
@@ -16,16 +16,16 @@ if(isset($_POST['verificationPassword']))
             if($_POST['username'] != ""){ // si il veut modifier son nom d'utilisateur
                 $username = mysqli_real_escape_string($db,htmlspecialchars($_POST['username']));
 
-                $requete2 = "SELECT count(nom_utilisateur) FROM utilisateur where nom_utilisateur = '".$username."'";
+                $requete2 = "SELECT count(email) FROM user where email = '".$username."'";
                 $exec_requete2 = mysqli_query($db,$requete2);
                 $reponse2      = mysqli_fetch_array($exec_requete2);
-                $count2 = $reponse2['count(nom_utilisateur)']; // si 0 = non utiliser si 1 = utiliser
+                $count2 = $reponse2['count(email)']; // si 0 = non utiliser si 1 = utiliser
 
                 if($count2==0) // !=0 si le nom_utilisateur et deja utiliser | == 0 si le nom_utilisateur n'est pas utiliser
                 {   
                     echo $count2;
                     echo $reponse['id_user'];
-                    $requete3 = "UPDATE `utilisateur` SET `nom_utilisateur`='".$username."' WHERE id_user = '".$reponse['id_user']."'";
+                    $requete3 = "UPDATE `user` SET `email`='".$username."' WHERE id_user = '".$reponse['id_user']."'";
                     $requete3 = mysqli_query($db,$requete3) or die("Foobar");// doit normalement executer la requete SQL
                     if($requete3){
                         $_SESSION['username'] = $username;
@@ -49,7 +49,7 @@ if(isset($_POST['verificationPassword']))
                 if($password == $passwordConf){
 
                     $pwd_peppered = hash_hmac("sha512", $password, 8); // sha256 mieux que md5 mais c'est pour le test
-                    $requete3 = "UPDATE `utilisateur` SET `mot_de_passe`='".$pwd_peppered."' WHERE id_user = '".$reponse['id_user']."'";
+                    $requete3 = "UPDATE `user` SET `mdp`='".$pwd_peppered."' WHERE id_user = '".$reponse['id_user']."'";
                     $requete3 = mysqli_query($db,$requete3) or die("Foobar");// doit normalement executer la requete SQL
                     if($requete3){
                         header('Location: ../parametre_compte.php?erreur=3');

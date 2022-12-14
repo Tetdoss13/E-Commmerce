@@ -10,7 +10,7 @@
     session_start();
     include('Fonction_PHP_JS/connect.php');
     if(isset($_SESSION['role']) && $_SESSION['role'] == "admin"){
-        $requete = "SELECT * FROM utilisateur order by nom_utilisateur ";
+        $requete = "SELECT * FROM user order by email ";
         $exec_requete = mysqli_query($db,$requete);
             ?>
             <a href="acceuil.php" class="dec">Acceuil</a>
@@ -31,7 +31,7 @@
                                     $etat = "Bannir";
                                 }
                                 ?>
-                                <td><?php echo $row['nom_utilisateur'] ?></td>
+                                <td><?php echo $row['email'] ?></td>
                                 <td><button><a href="Fonction_PHP_JS/bannir.php?<?php echo $etat ?>=<?php echo $row['id_user'] ?>"><?php echo $etat ?></a></button></td>
                                 <td><button><a href="Fonction_PHP_JS/supprimer_compte.php?sup=<?php echo $row['id_user'] ?>">Supprimer</a></button></td>
                             </tr>

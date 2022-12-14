@@ -25,7 +25,7 @@
             $_SESSION = array();
             
             session_destroy(); 
-            echo "<p style='color:green'>Vous etez deconnecter</p>";
+            echo "<p style='color:green'>Vous êtes deconnecter</p>";
         }
     }
     ?>
